@@ -2,11 +2,12 @@ import Link from 'next/link';
 
 import FooterMenu from 'components/layout/footer-menu';
 import LogoSquare from 'components/logo-square';
-import { getMenu } from 'lib/shopify';
+import { getMenu } from 'lib/api';
 import { Suspense } from 'react';
 
 const { COMPANY_NAME, SITE_NAME } = process.env;
 
+//Bottom of page footer
 export default async function Footer() {
   const currentYear = new Date().getFullYear();
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
@@ -59,7 +60,7 @@ export default async function Footer() {
           <p>Designed in California</p>
           <p className="md:ml-auto">
             <a href="https://vercel.com" className="text-black dark:text-white">
-              Crafted by ▲ Vercel
+              Crafted by ▲ Vercel + Pat
             </a>
           </p>
         </div>

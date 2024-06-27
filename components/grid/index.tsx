@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 
+//Grid formatting
 function Grid(props: React.ComponentProps<'ul'>) {
   return (
     <ul {...props} className={clsx('grid grid-flow-row gap-4', props.className)}>

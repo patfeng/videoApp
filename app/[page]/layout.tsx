@@ -1,5 +1,6 @@
 import Footer from 'components/layout/footer';
 
+//Layout for 404 error
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>

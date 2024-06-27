@@ -6,6 +6,7 @@ import { FilterItem } from './item';
 export type ListItem = SortFilterItem | PathFilterItem;
 export type PathFilterItem = { title: string; path: string };
 
+//searchbar dropdown menu- effectively not implemented as no data
 function FilterItemList({ list }: { list: ListItem[] }) {
   return (
     <>

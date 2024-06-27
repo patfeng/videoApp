@@ -7,6 +7,7 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import type { ListItem } from '.';
 import { FilterItem } from './item';
 
+//searchbar dropdown menu - effectively not implemented as no data
 export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();

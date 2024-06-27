@@ -1,22 +1,24 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import Label from '../label';
+import Player from 'next-video/player';
 
+//Contents of grids
 export function GridTileImage({
   isInteractive = true,
   active,
   label,
+  id,
   ...props
 }: {
   isInteractive?: boolean;
   active?: boolean;
   label?: {
     title: string;
-    amount: string;
-    currencyCode: string;
-    position?: 'bottom' | 'center';
+    position?: 'bottom' | 'center' | 'top';
   };
-} & React.ComponentProps<typeof Image>) {
+  id: string;
+} & React.ComponentProps<typeof Player>) {
   return (
     <div
       className={clsx(
@@ -29,22 +31,14 @@ export function GridTileImage({
       )}
     >
       {props.src ? (
-        // eslint-disable-next-line jsx-a11y/alt-text -- `alt` is inherited from `props`, which is being enforced with TypeScript
-        <Image
+        <Player
           className={clsx('relative h-full w-full object-contain', {
-            'transition duration-300 ease-in-out group-hover:scale-105': isInteractive
+            'transition duration-300 ease-in-out group-hover:scale-95': isInteractive
           })}
           {...props}
         />
       ) : null}
-      {label ? (
-        <Label
-          title={label.title}
-          amount={label.amount}
-          currencyCode={label.currencyCode}
-          position={label.position}
-        />
-      ) : null}
+      {label ? <Label title={label.title} position={label.position} id={id} /> : null}
     </div>
   );
 }

@@ -1,28 +1,18 @@
-import { getCollection, getCollectionProducts } from 'lib/shopify';
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-
 import Grid from 'components/grid';
-import ProductGridItems from 'components/layout/product-grid-items';
+import VideoGridItems from 'components/layout/video-grid-items';
 import { defaultSort, sorting } from 'lib/constants';
+import { getVideosByUserId } from 'lib/api';
+import { get } from 'http';
+import { Metadata } from 'next';
 
-export async function generateMetadata({
-  params
-}: {
-  params: { collection: string };
-}): Promise<Metadata> {
-  const collection = await getCollection(params.collection);
+export const metadata: Metadata = {
+  title: 'Learnwell - Profile',
+  description: 'Profile page for user videos'
+};
 
-  if (!collection) return notFound();
+//User profile page - under same subdir as search as they are very similar
 
-  return {
-    title: collection.seo?.title || collection.title,
-    description:
-      collection.seo?.description || collection.description || `${collection.title} products`
-  };
-}
-
-export default async function CategoryPage({
+export default async function UserPage({
   params,
   searchParams
 }: {
@@ -31,16 +21,23 @@ export default async function CategoryPage({
 }) {
   const { sort } = searchParams as { [key: string]: string };
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
-  const products = await getCollectionProducts({ collection: params.collection, sortKey, reverse });
+  const videos = await getVideosByUserId(params.collection);
 
   return (
-    <section>
-      {products.length === 0 ? (
-        <p className="py-3 text-lg">{`No products found in this collection`}</p>
+    <section className="py-6">
+      <p className="mb-2 text-5xl font-medium">
+        {params.collection == 'pat_feng_anonymous' ? 'Anonymous Posts:' : params.collection}
+      </p>
+
+      {videos.length === 0 ? (
+        <p className="py-3 text-lg">{`No videos found from ${params.collection}. Upload something!`}</p>
       ) : (
-        <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          <ProductGridItems products={products} />
-        </Grid>
+        <>
+          <p className="py-3 text-lg">{``}</p>
+          <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            <VideoGridItems videos={videos} />
+          </Grid>
+        </>
       )}
     </section>
   );

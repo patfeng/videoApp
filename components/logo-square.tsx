@@ -1,6 +1,8 @@
 import clsx from 'clsx';
-import LogoIcon from './icons/logo';
+import Image from 'next/image';
+import logo from './icons/LOGO_ICON.png';
 
+//logo in top and bottom of page
 export default function LogoSquare({ size }: { size?: 'sm' | undefined }) {
   return (
     <div
@@ -12,11 +14,11 @@ export default function LogoSquare({ size }: { size?: 'sm' | undefined }) {
         }
       )}
     >
-      <LogoIcon
-        className={clsx({
-          'h-[16px] w-[16px]': !size,
-          'h-[10px] w-[10px]': size === 'sm'
-        })}
+      <Image
+        src={logo}
+        width={size === 'sm' ? 16 : 24}
+        height={size === 'sm' ? 16 : 24}
+        alt="Learnwell Logo"
       />
     </div>
   );

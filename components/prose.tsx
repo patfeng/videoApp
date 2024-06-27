@@ -6,6 +6,7 @@ interface TextProps {
   className?: string;
 }
 
+//Formats text
 const Prose: FunctionComponent<TextProps> = ({ html, className }) => {
   return (
     <div
